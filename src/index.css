@@ -1,0 +1,329 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TOKENS — la identidad visual vive acá. Cambiá un valor y cambia todo el sitio.
+   ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Fondos, del más profundo al más claro */
+  --color-ink-950: #04080b;
+  --color-ink-900: #060c10;
+  --color-ink-850: #081116;
+  --color-ink-800: #0b161c;
+  --color-ink-750: #0e1c23;
+  --color-ink-700: #13242c;
+
+  /* Acento neón teal */
+  --color-neon: #2fe4e4;
+  --color-neon-soft: #7cf5f0;
+  --color-neon-deep: #0e9c9c;
+  --color-neon-dim: #1a8a8a;
+
+  /* Texto */
+  --color-paper: #e8f2f4;
+  --color-mute: #8fa5ac;
+  --color-faint: #5d757e;
+
+  /* Tipografía */
+  --font-display: "Sora", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Curvas */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Deja aire bajo el navbar fijo al saltar a una sección */
+    scroll-padding-top: 5.5rem;
+    background-color: var(--color-ink-950);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04";
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-neon) 32%, transparent);
+    color: #fff;
+  }
+
+  /* Scrollbar acorde al tema */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-neon) 22%, var(--color-ink-700));
+    border-radius: 99px;
+    border: 2px solid var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--color-neon) 42%, var(--color-ink-700));
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-neon);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   PIEZAS REUTILIZABLES
+   ────────────────────────────────────────────────────────────────────────── */
+@layer components {
+  /* Panel de vidrio: la superficie base de todas las tarjetas del sitio */
+  .panel {
+    background: linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--color-ink-800) 88%, transparent),
+      color-mix(in oklab, var(--color-ink-900) 92%, transparent)
+    );
+    border: 1px solid color-mix(in oklab, var(--color-neon) 11%, transparent);
+    border-radius: 1rem;
+    backdrop-filter: blur(14px);
+    box-shadow:
+      0 1px 0 0 color-mix(in oklab, var(--color-neon) 7%, transparent) inset,
+      0 18px 50px -30px rgb(0 0 0 / 0.9);
+  }
+
+  .panel-hover {
+    transition:
+      border-color 0.35s var(--ease-out-soft),
+      transform 0.35s var(--ease-out-soft),
+      box-shadow 0.35s var(--ease-out-soft);
+  }
+  .panel-hover:hover {
+    border-color: color-mix(in oklab, var(--color-neon) 34%, transparent);
+    transform: translateY(-3px);
+    box-shadow:
+      0 1px 0 0 color-mix(in oklab, var(--color-neon) 14%, transparent) inset,
+      0 26px 60px -32px color-mix(in oklab, var(--color-neon) 28%, black);
+  }
+
+  /* Texto con resplandor neón */
+  .neon-text {
+    color: var(--color-neon);
+    text-shadow:
+      0 0 14px color-mix(in oklab, var(--color-neon) 45%, transparent),
+      0 0 42px color-mix(in oklab, var(--color-neon) 22%, transparent);
+  }
+
+  /* Etiqueta de sección: ● PROYECTOS */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-neon);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 99px;
+    background: var(--color-neon);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-neon) 18%, transparent);
+  }
+
+  /* Botón principal relleno */
+  .btn-solid {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: 99px;
+    padding: 0.85rem 1.6rem;
+    font-weight: 600;
+    color: #032024;
+    background: linear-gradient(100deg, var(--color-neon-soft), var(--color-neon) 55%, var(--color-neon-deep));
+    box-shadow: 0 10px 34px -14px color-mix(in oklab, var(--color-neon) 75%, transparent);
+    transition:
+      transform 0.25s var(--ease-out-soft),
+      box-shadow 0.25s var(--ease-out-soft),
+      filter 0.25s var(--ease-out-soft);
+  }
+  .btn-solid:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow: 0 16px 42px -12px color-mix(in oklab, var(--color-neon) 85%, transparent);
+  }
+  .btn-solid:active {
+    transform: translateY(0);
+  }
+
+  /* Botón de contorno */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: 99px;
+    padding: 0.75rem 1.4rem;
+    font-weight: 500;
+    color: var(--color-paper);
+    border: 1px solid color-mix(in oklab, var(--color-neon) 40%, transparent);
+    background: color-mix(in oklab, var(--color-ink-800) 55%, transparent);
+    backdrop-filter: blur(8px);
+    transition:
+      border-color 0.25s var(--ease-out-soft),
+      background 0.25s var(--ease-out-soft),
+      transform 0.25s var(--ease-out-soft),
+      box-shadow 0.25s var(--ease-out-soft);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-neon);
+    background: color-mix(in oklab, var(--color-neon) 12%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px -20px color-mix(in oklab, var(--color-neon) 90%, transparent);
+  }
+
+  /* Píldora de tecnología */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.28rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-mute);
+    background: color-mix(in oklab, var(--color-ink-700) 70%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-paper) 8%, transparent);
+  }
+
+  /* Campo de formulario */
+  .field {
+    width: 100%;
+    border-radius: 0.85rem;
+    background: color-mix(in oklab, var(--color-ink-900) 80%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-neon) 12%, transparent);
+    padding: 0.9rem 1rem 0.9rem 2.85rem;
+    color: var(--color-paper);
+    transition:
+      border-color 0.25s var(--ease-out-soft),
+      box-shadow 0.25s var(--ease-out-soft);
+  }
+  .field::placeholder {
+    color: var(--color-faint);
+  }
+  .field:focus {
+    outline: none;
+    border-color: color-mix(in oklab, var(--color-neon) 55%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-neon) 10%, transparent);
+  }
+
+  /* Rejilla técnica de fondo */
+  .grid-bg {
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--color-neon) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--color-neon) 6%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 78%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Oculta la barra de scroll sin perder el scroll */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Animaciones ─────────────────────────────────────────────────────────────── */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.85);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 5s ease-in-out infinite;
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+.animate-caret {
+  animation: caret 1.1s steps(1) infinite;
+}

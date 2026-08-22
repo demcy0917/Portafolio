@@ -1,0 +1,10 @@
+# El repo guarda siempre LF. Evita que un clon en Windows y otro en Linux
+# se vean como si hubieran cambiado todas las líneas de todos los archivos.
+* text=auto eol=lf
+
+# Binarios: que Git no intente normalizarlos
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.mp4  binary
+*.pdf  binary
