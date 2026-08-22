@@ -183,18 +183,53 @@ de marca; se dibujan a mano en el mismo archivo.
 
 ---
 
-## Deploy a Cloudflare Pages
+## Deploy a Cloudflare
+
+El sitio se publica como un **Worker con assets estáticos**, no como un
+proyecto de Pages. No hay código de servidor: el Worker solo sirve lo que
+produce `npm run build`.
+
+Desde tu máquina:
 
 ```bash
 npm run deploy
 ```
 
-O conectá el repositorio en el panel de Cloudflare con:
+Desde el panel de Cloudflare, con el repositorio conectado:
 
 - **Build command:** `npm run build`
-- **Output directory:** `dist`
+- **Deploy command:** `npx wrangler deploy`
+- **Root directory:** `/`
 
-El nombre del proyecto y la fecha de compatibilidad están en `wrangler.jsonc`.
+### Dos cosas que rompen el deploy
+
+**El nombre en `wrangler.jsonc` tiene que ser el del proyecto en Cloudflare.**
+Si no coincide, `wrangler deploy` publica en otro Worker sin avisar. Hoy es
+`portafolio`.
+
+**No uses `pages_build_output_dir`.** Es la forma de configurar Pages y con
+ella `wrangler deploy` falla con «Missing entry-point to Worker script or to
+assets directory». La carpeta va en `assets.directory`.
+
+Para comprobar la configuración sin publicar nada:
+
+```bash
+npx wrangler deploy --dry-run
+```
+
+### Si el build falla en el `npm ci`
+
+Cloudflare instala con `npm ci`, que exige que `package.json` y
+`package-lock.json` estén sincronizados y falla con `EUSAGE` si no lo están.
+Se arregla corriendo `npm install` y subiendo el lock actualizado. Antes de
+subirlo, reproducí el build completo tal como lo hace Cloudflare:
+
+```bash
+rm -rf node_modules && npm ci && npm run build
+```
+
+En Windows, `npm ci` da un error de permisos si hay un `npm run dev` o
+`npm run preview` abierto: cerralos primero.
 
 ---
 

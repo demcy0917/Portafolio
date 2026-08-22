@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler pages deploy dist",
+    "deploy": "npm run build && wrangler deploy",
     "shot": "node scripts/shot.mjs ./capturas",
     "iconos": "node scripts/gen-icons.mjs"
   },

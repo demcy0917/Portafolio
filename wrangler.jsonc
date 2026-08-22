@@ -1,6 +1,26 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "demcy-ia",
+
+  // Tiene que coincidir con el nombre del proyecto en el panel de Cloudflare.
+  // Si no coincide, `wrangler deploy` publica en OTRO Worker.
+  "name": "portafolio",
   "compatibility_date": "2026-08-21",
-  "pages_build_output_dir": "dist"
+
+  // Sitio estático servido por un Worker: no hay código de servidor, solo la
+  // carpeta que produce `npm run build`.
+  //
+  // Ojo: esto NO es un proyecto de Pages. Con `pages_build_output_dir` el
+  // comando `wrangler deploy` falla pidiendo un entry-point, porque espera
+  // `wrangler pages deploy`. El panel usa `npx wrangler deploy`, así que la
+  // configuración va en formato Workers.
+  "assets": {
+    "directory": "./dist",
+    // El sitio es una sola página con anclas; cualquier ruta que no exista
+    // devuelve el index en vez de un 404 seco.
+    "not_found_handling": "single-page-application"
+  },
+
+  "observability": {
+    "enabled": true
+  }
 }
