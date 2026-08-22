@@ -104,7 +104,7 @@ export function Navbar({ oculto = false }: { oculto?: boolean }) {
           <div className="flex items-center gap-2">
             <a
               href={profile.cv}
-              download
+              download={profile.cvArchivo}
               className="btn-ghost hidden px-5 py-2.5 text-sm sm:inline-flex"
             >
               <Download className="h-4 w-4" />
@@ -180,7 +180,7 @@ export function Navbar({ oculto = false }: { oculto?: boolean }) {
                 ))}
               </ul>
 
-              <a href={profile.cv} download className="btn-solid mt-auto w-full">
+              <a href={profile.cv} download={profile.cvArchivo} className="btn-solid mt-auto w-full">
                 <Download className="h-4 w-4" />
                 Descargar CV
               </a>

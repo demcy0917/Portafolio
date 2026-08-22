@@ -34,6 +34,8 @@ export const profile = {
   },
 
   cv: "/cv.pdf",
+  /** Con qué nombre se guarda al descargarlo. */
+  cvArchivo: "CV David Melgar.pdf",
 
   /** Enlaces sociales. Dejá "" y el ícono desaparece del sitio. */
   links: {
