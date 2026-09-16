@@ -59,15 +59,15 @@ export type Proyecto = {
 
 export const proyectos: Proyecto[] = [
   {
-    slug: "aiflow",
-    nombre: "AiFlow",
+    slug: "synq-corporation",
+    nombre: "SynQ Corporation",
     etiqueta: "Producto propio",
     resumen:
-      "Sitio y API de demcy.ia en un solo despliegue: asistente de IA en la web, formulario de contacto y límites de uso en el borde.",
+      "Sitio de automatización e IA para negocios, con su API en un solo despliegue: asistente de IA en la web, formulario de contacto y límites de uso en el borde.",
     chips: ["React 18", "Hono", "Cloudflare Workers", "OpenAI"],
     categorias: ["Aplicaciones Web", "APIs & Backend", "Automatización & IA"],
     mock: "chat",
-    portada: "/media/proyectos/aiflow/portada.jpg",
+    portada: "/media/proyectos/synq-corporation/portada.jpg",
     año: "2026",
     demo: "https://aiflowgt.com/",
     repo: "",

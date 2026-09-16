@@ -52,7 +52,7 @@ const SINTAXIS = {
 };
 
 const CODIGO = [
-  "// aiflow · núcleo agnóstico del canal",
+  "// demcy-bot · núcleo agnóstico del canal",
   "import { Hono } from 'hono'",
   "import { asesor } from './agente'",
   "",
@@ -177,7 +177,7 @@ export function texturaEditor(variante: "a" | "b") {
 
     ctx.fillStyle = SINTAXIS.fondo;
     ctx.fillRect(0, 0, 1024, 640);
-    barraVentana(ctx, 1024, variante === "a" ? "src/index.ts — aiflow" : "productos.service.ts");
+    barraVentana(ctx, 1024, variante === "a" ? "src/index.ts — demcy-bot" : "productos.service.ts");
 
     // Barra lateral tipo explorador
     ctx.fillStyle = "#08111B";

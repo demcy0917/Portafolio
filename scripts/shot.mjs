@@ -102,7 +102,7 @@ await pagina.waitForTimeout(600);
 // Dos fichas: una con captura y otra con video. Se buscan por nombre de
 // proyecto para que no se rompa al reordenar la lista.
 for (const [proyecto, nombre] of [
-  ["AiFlow", "07-ficha"],
+  ["SynQ Corporation", "07-ficha"],
   ["Creador de contenido", "07b-ficha-video"],
 ]) {
   const card = pagina.locator("li", { hasText: proyecto });
