@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/hero/Hero";
+import { DiaDeDeploy } from "@/components/sections/DiaDeDeploy";
 import { SobreMi } from "@/components/sections/SobreMi";
 import { Proyectos } from "@/components/sections/Proyectos";
 import { Habilidades } from "@/components/sections/Habilidades";
@@ -24,6 +25,7 @@ export default function App() {
 
       <main>
         <Hero onPov={setEnPov} />
+        <DiaDeDeploy />
         <SobreMi />
         <Proyectos />
         <Habilidades />

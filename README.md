@@ -158,6 +158,28 @@ singular produce normales NaN, y ese NaN se propaga por el desenfoque del bloom
 hasta dejar toda la escena en negro. Por eso las columnas que se come la barra
 espaciadora no se generan en vez de ocultarse con `scale = 0`.
 
+### Un día de deploy (video con el scroll)
+
+La sección que sigue al hero. El scroll mueve el tiempo de cuatro clips
+encadenados —amanecer, mediodía, atardecer, noche— generados con Higgsfield,
+y el último cuadro de cada uno es el primero del siguiente, así que se ven
+como una sola toma. Vino del proyecto `Portafolio/` (skill scroll-world).
+
+- **Textos y horas:** `src/content/dia.ts`.
+- **Clips:** `public/media/dia/`. `d0–d3` son de escritorio (16:9) y `m0–m3`
+  de celular en vertical (9:16); cada uno lleva su póster `.webp`.
+- **Velocidad:** `SCROLL_POR_MOMENTO` en `DiaDeDeploy.tsx` dice cuántas
+  pantallas de scroll dura cada momento.
+
+Si regenerás los clips, mantené dos cosas: `pix_fmt=yuv420p` (Firefox y
+Safari rechazan `yuvj420p`) y keyframes frecuentes, porque el scroll salta a
+cualquier punto del video y cada salto decodifica desde el keyframe anterior.
+Los actuales tienen uno cada ~8 cuadros en escritorio y cada ~4 en móvil.
+
+Para probar el scroll, no uses el panel del navegador de la app con el panel
+oculto: sin pintar no corre `requestAnimationFrame` y la sección parece rota.
+En un navegador normal responde en un cuadro.
+
 ### Los logos de tecnologías
 
 Los trazos SVG salen de [simple-icons](https://simpleicons.org) pero se extraen

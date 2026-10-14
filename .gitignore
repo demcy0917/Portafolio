@@ -18,3 +18,8 @@ capturas
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Proyecto de referencia del que salió la sección "Un día de deploy".
+# Fuera de Git para no duplicar sus 42 MB de video, y fuera del escaneo de
+# Tailwind, que si no mete en el CSS clases que este sitio no usa.
+Portafolio/

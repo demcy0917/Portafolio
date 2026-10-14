@@ -259,6 +259,100 @@
   }
 }
 
+/* ──────────────────────────────────────────────────────────────────────────
+   UN DÍA DE DEPLOY — video que avanza con el scroll (DiaDeDeploy.tsx)
+   ────────────────────────────────────────────────────────────────────────── */
+@layer components {
+  .dia {
+    background: var(--color-ink-950);
+  }
+
+  .dia-capa {
+    position: absolute;
+    inset: 0;
+    will-change: opacity;
+  }
+  .dia-capa img,
+  .dia-capa .dia-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .dia-capa .dia-video {
+    z-index: 1;
+  }
+  /* El póster se oculta solo cuando el video ya pintó un cuadro */
+  .dia-capa.has-clip picture {
+    opacity: 0;
+  }
+
+  /* Velo para que el texto se lea sobre cualquier hora del día. Arriba
+     arranca opaco: el primer cuadro del amanecer es claro y, sin esto, se ve
+     un corte horizontal contra el negro del hero al entrar a la sección. */
+  .dia-velo {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background:
+      linear-gradient(0deg, rgb(4 8 11 / 0.95) 0%, rgb(4 8 11 / 0.82) 34%, rgb(4 8 11 / 0.3) 52%, transparent 64%),
+      linear-gradient(180deg, rgb(4 8 11) 0%, rgb(4 8 11 / 0.7) 9%, transparent 26%);
+  }
+  @media (min-width: 861px) {
+    .dia-velo {
+      background:
+        linear-gradient(90deg, rgb(4 8 11 / 0.88) 0%, rgb(4 8 11 / 0.6) 34%, rgb(4 8 11 / 0.15) 56%, transparent 66%),
+        linear-gradient(0deg, rgb(4 8 11 / 0.85) 0%, transparent 34%),
+        linear-gradient(180deg, rgb(4 8 11) 0%, rgb(4 8 11 / 0.7) 9%, transparent 26%);
+    }
+  }
+
+  .dia-reloj {
+    font-size: clamp(20px, 2.2vw, 30px);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    padding: 9px 14px;
+    border-radius: 0.75rem;
+    color: var(--color-paper);
+    border: 1px solid color-mix(in oklab, var(--color-neon) 22%, transparent);
+    background: color-mix(in oklab, var(--color-ink-950) 60%, transparent);
+    backdrop-filter: blur(10px);
+  }
+  .dia-reloj small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+    margin-bottom: 5px;
+  }
+
+  .dia-riel {
+    height: 2px;
+    border-radius: 99px;
+    background: color-mix(in oklab, var(--color-paper) 14%, transparent);
+    overflow: hidden;
+  }
+  .dia-riel-fill {
+    display: block;
+    height: 100%;
+    background: var(--color-neon);
+    box-shadow: 0 0 12px color-mix(in oklab, var(--color-neon) 70%, transparent);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+  }
+
+  .dia-marca {
+    color: var(--color-mute);
+    transition: color 0.25s ease;
+  }
+  .dia-marca.is-on {
+    color: var(--color-neon);
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

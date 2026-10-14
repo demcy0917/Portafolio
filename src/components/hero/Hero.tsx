@@ -226,7 +226,7 @@ export function Hero({ onPov }: { onPov: (activo: boolean) => void }) {
 
             {/* Indicador de scroll */}
             <motion.a
-              href="#sobre-mi"
+              href="#proceso"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.15 }}
