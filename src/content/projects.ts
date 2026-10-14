@@ -275,7 +275,7 @@ export const proyectos: Proyecto[] = [
     mock: "video",
     video: {
       bucle: "/media/proyectos/creador-de-contenido/preview.mp4",
-      completo: "/media/proyectos/creador-de-contenido/messi-futbol.mp4",
+      completo: "/media/proyectos/creador-de-contenido/david.mp4",
       poster: "/media/proyectos/creador-de-contenido/poster.jpg",
     },
     año: "2026",

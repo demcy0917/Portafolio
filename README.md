@@ -73,12 +73,14 @@ video: {
 },
 ```
 
-Los videos hay que comprimirlos antes: el original de *Creador de contenido*
-pesaba 31 MB y quedó en 2,9 MB sin pérdida visible. Con el ffmpeg que ya trae
+Los videos hay que comprimirlos antes: el de *Creador de contenido* (2:35,
+1080×1920) pesaba 28 MB y quedó en 9,2 MB a 540×960, sin diferencia visible
+en el tamaño al que se muestra. Es animación con mucho detalle; uno más simple
+comprime bastante más. Con el ffmpeg que ya trae
 Remotion en `01 - Proyectos/Creador de contenido/remotion-video/node_modules/`:
 
 ```bash
-ffmpeg -i entrada.mp4 -vf "scale=720:-2:in_range=full:out_range=tv,format=yuv420p" -c:v libx264 -profile:v main -color_range tv -colorspace bt709 -crf 28 -preset slow -c:a aac -b:a 96k -movflags +faststart completo.mp4
+ffmpeg -i entrada.mp4 -map 0:v:0 -map 0:a:0 -vf "scale=540:-2:in_range=full:out_range=tv,format=yuv420p" -c:v libx264 -profile:v main -color_range tv -colorspace bt709 -crf 32 -preset slow -c:a aac -b:a 96k -movflags +faststart completo.mp4
 ffmpeg -ss 3 -t 12 -i entrada.mp4 -an -vf "scale=460:-2:in_range=full:out_range=tv,format=yuv420p" -c:v libx264 -profile:v main -color_range tv -crf 31 -preset slow -movflags +faststart preview.mp4
 ffmpeg -ss 5 -i entrada.mp4 -frames:v 1 -vf "scale=540:-2" -q:v 4 poster.jpg
 ```
